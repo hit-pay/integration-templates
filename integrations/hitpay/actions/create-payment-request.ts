@@ -16,7 +16,10 @@ const InputSchema = z
         name: z.string().optional().describe('Name of the buyer. Example: "John Doe"'),
         purpose: z.string().optional().describe('Purpose of the payment, shown to the buyer. Example: "Order #1234"'),
         reference_number: z.string().optional().describe('Your own reference for the payment; the buyer cannot edit it. Example: "ORDER-1234"'),
-        redirect_url: z.string().optional().describe('URL the buyer is sent to after paying. HitPay appends the payment request ID and status as query parameters.'),
+        redirect_url: z
+            .string()
+            .optional()
+            .describe('URL the buyer is sent to after paying. HitPay appends the payment request ID and status as query parameters.'),
         allow_repeated_payments: z.boolean().optional().describe('Whether the payment link can be paid more than once. Defaults to false.'),
         expiry_date: z
             .string()
