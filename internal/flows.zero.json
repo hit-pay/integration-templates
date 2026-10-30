@@ -462337,6 +462337,414 @@
         "symLinkTargetName": null
     },
     {
+        "providerConfigKey": "hitpay",
+        "actions": [
+            {
+                "type": "action",
+                "description": "Create a HitPay payment request and return its hosted checkout URL.",
+                "endpoint": null,
+                "input": "ActionInput_hitpay_createpaymentrequest",
+                "name": "create-payment-request",
+                "output": ["ActionOutput_hitpay_createpaymentrequest"],
+                "scopes": ["payments:create"],
+                "usedModels": ["ActionInput_hitpay_createpaymentrequest", "ActionOutput_hitpay_createpaymentrequest"],
+                "version": "1.0.0",
+                "json_schema": {
+                    "definitions": {
+                        "ActionInput_hitpay_createpaymentrequest": {
+                            "type": "object",
+                            "properties": {
+                                "amount": {
+                                    "type": "number",
+                                    "exclusiveMinimum": 0,
+                                    "description": "Amount to charge, in the major unit of the currency. Example: 25.5"
+                                },
+                                "currency": {
+                                    "type": "string",
+                                    "pattern": "^[A-Za-z]{3}$",
+                                    "description": "ISO 4217 currency code of the payment. Example: \"SGD\""
+                                },
+                                "payment_methods": {
+                                    "description": "Payment methods to offer on the checkout page. Omit to offer every method enabled on the business. Example: [\"paynow_online\", \"card\"]",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "email": {
+                                    "description": "Email of the buyer. Example: \"buyer@example.com\"",
+                                    "type": "string"
+                                },
+                                "name": {
+                                    "description": "Name of the buyer. Example: \"John Doe\"",
+                                    "type": "string"
+                                },
+                                "purpose": {
+                                    "description": "Purpose of the payment, shown to the buyer. Example: \"Order #1234\"",
+                                    "type": "string"
+                                },
+                                "reference_number": {
+                                    "description": "Your own reference for the payment; the buyer cannot edit it. Example: \"ORDER-1234\"",
+                                    "type": "string"
+                                },
+                                "redirect_url": {
+                                    "description": "URL the buyer is sent to after paying. HitPay appends the payment request ID and status as query parameters.",
+                                    "type": "string"
+                                },
+                                "allow_repeated_payments": {
+                                    "description": "Whether the payment link can be paid more than once. Defaults to false.",
+                                    "type": "boolean"
+                                },
+                                "expiry_date": {
+                                    "description": "When the payment link expires, as \"YYYY-MM-DD HH:mm:ss\" in Singapore time (SGT). Example: \"2026-12-31 23:59:59\"",
+                                    "type": "string"
+                                }
+                            },
+                            "required": ["amount", "currency"],
+                            "additionalProperties": false,
+                            "description": "Details of the payment request to create."
+                        },
+                        "ActionOutput_hitpay_createpaymentrequest": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "description": "HitPay payment request ID. Example: \"9741164c-06a2-4d5d-a8d5-c2f1a3a0d5f4\""
+                                },
+                                "url": {
+                                    "type": "string",
+                                    "description": "Hosted checkout URL to send the buyer to."
+                                },
+                                "status": {
+                                    "type": "string",
+                                    "description": "Status of the payment request. Newly created requests are \"pending\"."
+                                },
+                                "amount": {
+                                    "type": "string",
+                                    "description": "Amount as a decimal string with two decimals. Example: \"25.50\""
+                                },
+                                "currency": {
+                                    "type": "string",
+                                    "description": "Currency code of the payment request. Example: \"sgd\""
+                                },
+                                "name": {
+                                    "description": "Name of the buyer.",
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                },
+                                "email": {
+                                    "description": "Email of the buyer.",
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                },
+                                "phone": {
+                                    "description": "Phone number of the buyer.",
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                },
+                                "purpose": {
+                                    "description": "Purpose of the payment.",
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                },
+                                "reference_number": {
+                                    "description": "Your own reference for the payment.",
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                },
+                                "payment_methods": {
+                                    "description": "Payment methods offered on the checkout page.",
+                                    "anyOf": [
+                                        {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                },
+                                "redirect_url": {
+                                    "description": "URL the buyer is sent to after paying.",
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                },
+                                "allow_repeated_payments": {
+                                    "description": "Whether the payment link can be paid more than once.",
+                                    "anyOf": [
+                                        {
+                                            "type": "boolean"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                },
+                                "expiry_date": {
+                                    "description": "When the payment link expires.",
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                },
+                                "created_at": {
+                                    "description": "Timestamp when the payment request was created.",
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                },
+                                "updated_at": {
+                                    "description": "Timestamp when the payment request was last updated.",
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                }
+                            },
+                            "required": ["id", "url", "status", "amount", "currency"],
+                            "additionalProperties": false,
+                            "description": "The payment request created in HitPay."
+                        }
+                    }
+                },
+                "features": []
+            },
+            {
+                "type": "action",
+                "description": "Get the status of the connected HitPay business, including whether it can accept payments.",
+                "endpoint": null,
+                "input": "ActionInput_hitpay_getbusinessstatus",
+                "name": "get-business-status",
+                "output": ["ActionOutput_hitpay_getbusinessstatus"],
+                "scopes": ["business:read"],
+                "usedModels": ["ActionInput_hitpay_getbusinessstatus", "ActionOutput_hitpay_getbusinessstatus"],
+                "version": "1.0.0",
+                "json_schema": {
+                    "definitions": {
+                        "ActionInput_hitpay_getbusinessstatus": {
+                            "type": "object",
+                            "properties": {},
+                            "additionalProperties": false,
+                            "description": "No input is required; the business is the one selected when the connection was authorized."
+                        },
+                        "ActionOutput_hitpay_getbusinessstatus": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "description": "HitPay business ID. Example: \"916c3fb5-f824-4a59-b017-7ae211e3ded6\""
+                                },
+                                "identifier": {
+                                    "description": "Unique handle of the business. Example: \"acme\"",
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                },
+                                "name": {
+                                    "description": "Registered name of the business.",
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                },
+                                "display_name": {
+                                    "description": "Name shown to customers on checkout pages.",
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                },
+                                "email": {
+                                    "description": "Contact email of the business.",
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                },
+                                "country": {
+                                    "description": "Lowercase ISO 3166-1 alpha-2 country code of the business. Example: \"sg\"",
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                },
+                                "country_name": {
+                                    "description": "Full country name. Example: \"Singapore\"",
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                },
+                                "currency": {
+                                    "description": "Lowercase ISO 4217 default currency of the business. Example: \"sgd\"",
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                },
+                                "currency_name": {
+                                    "description": "Display name of the default currency. Example: \"Singapore Dollar ($)\"",
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                },
+                                "status": {
+                                    "type": "string",
+                                    "description": "Account status of the business as reported by HitPay. Example: \"active\""
+                                },
+                                "payment_enabled": {
+                                    "type": "boolean",
+                                    "description": "Whether the business can currently accept payments."
+                                },
+                                "website": {
+                                    "description": "Website URL of the business.",
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                },
+                                "business_type": {
+                                    "description": "Legal type of the business. Example: \"company\"",
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                },
+                                "created_at": {
+                                    "description": "ISO 8601 timestamp when the business was created. Example: \"2020-09-01T14:18:34+08:00\"",
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                },
+                                "updated_at": {
+                                    "description": "ISO 8601 timestamp when the business was last updated. Example: \"2026-10-25T16:07:43+08:00\"",
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                }
+                            },
+                            "required": ["id", "status", "payment_enabled"],
+                            "additionalProperties": false,
+                            "description": "Status and profile of the connected HitPay business."
+                        }
+                    }
+                },
+                "features": []
+            }
+        ],
+        "syncs": [],
+        "onEventScripts": {
+            "post-connection-creation": [],
+            "pre-connection-deletion": [],
+            "validate-connection": []
+        },
+        "sdkVersion": "0.71.13",
+        "symLinkTargetName": null
+    },
+    {
         "providerConfigKey": "hubspot",
         "actions": [
             {

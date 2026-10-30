@@ -3308,6 +3308,10 @@ import './highlevel/actions/update-custom-value.js';
 import './highlevel/actions/update-opportunity.js';
 import './highlevel/actions/upsert-contact.js';
 
+// -- Integration: hitpay
+import './hitpay/actions/create-payment-request.js';
+import './hitpay/actions/get-business-status.js';
+
 // -- Integration: hubspot
 import './hubspot/syncs/companies.js';
 import './hubspot/syncs/contacts.js';
